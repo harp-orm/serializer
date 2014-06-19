@@ -68,62 +68,106 @@ class SerializersTest extends AbstractTestCase
         $this->assertTrue($serializers->contains($csv));
     }
 
-    /**
-     * @covers ::serialize
-     */
-    public function testSerialize()
+    public function dataSerialize()
     {
-        $subject = new stdClass();
-
-        $subject->test = array('test' => 'param');
-        $subject->test2 = array('val1', 'val2');
-
         $serializers = new Serializers(array(
             new Native('test'),
             new Csv('test2'),
         ));
 
+        return array(
+            array(
+                (object) array(
+                    'test' => array('test' => 'param'),
+                    'test2' => array('val1', 'val2')
+                ),
+                $serializers,
+                (object) array(
+                    'test' => 'a:1:{s:4:"test";s:5:"param";}',
+                    'test2' => 'val1,val2',
+                ),
+            ),
+            array(
+                array(
+                    'test' => array('test' => 'param'),
+                    'test2' => array('val1', 'val2')
+                ),
+                $serializers,
+                array(
+                    'test' => 'a:1:{s:4:"test";s:5:"param";}',
+                    'test2' => 'val1,val2',
+                ),
+            )
+        );
+    }
+
+    /**
+     * @covers ::serialize
+     * @dataProvider dataSerialize
+     */
+    public function testSerialize($subject, $serializers, $expected)
+    {
         $serialized = $serializers->serialize($subject);
 
-        $expected = new stdClass();
-
-        $expected->test = 'a:1:{s:4:"test";s:5:"param";}';
-        $expected->test2 = 'val1,val2';
-
         $this->assertEquals($expected, $serialized);
+        $this->assertEquals($expected, $subject);
 
         $this->setExpectedException('InvalidArgumentException', 'Subject must be either array or object');
 
-        $serializers->serialize('wrong argument');
+        $var = 'asd';
+
+        $serializers->serialize($var);
+    }
+
+    public function dataUnserialize()
+    {
+        $serializers = new Serializers(array(
+            new Native('test'),
+            new Csv('test2'),
+        ));
+
+        return array(
+            array(
+                (object) array(
+                    'test' => 'a:1:{s:4:"test";s:5:"param";}',
+                    'test2' => 'val1,val2',
+                ),
+                $serializers,
+                (object) array(
+                    'test' => array('test' => 'param'),
+                    'test2' => array('val1', 'val2')
+                ),
+            ),
+            array(
+                array(
+                    'test' => 'a:1:{s:4:"test";s:5:"param";}',
+                    'test2' => 'val1,val2',
+                ),
+                $serializers,
+                array(
+                    'test' => array('test' => 'param'),
+                    'test2' => array('val1', 'val2')
+                ),
+            )
+        );
     }
 
     /**
      * @covers ::unserialize
+     * @dataProvider dataUnserialize
      */
-    public function testUnserialize()
+    public function testUnserialize($subject, $serializers, $expected)
     {
-        $subject = new stdClass();
+        $unserialized = $serializers->unserialize($subject);
 
-        $subject->test = 'a:1:{s:4:"test";s:5:"param";}';
-        $subject->test2 = 'val1,val2';
-
-        $serializers = new Serializers(array(
-            new Native('test'),
-            new Csv('test2'),
-        ));
-
-        $serialized = $serializers->unserialize($subject);
-
-        $expected = new stdClass();
-
-        $expected->test = array('test' => 'param');
-        $expected->test2 = array('val1', 'val2');
-
-        $this->assertEquals($expected, $serialized);
+        $this->assertEquals($expected, $unserialized);
+        $this->assertEquals($expected, $subject);
 
         $this->setExpectedException('InvalidArgumentException', 'Subject must be either array or object');
 
-        $serializers->unserialize('wrong argument');
+        $var = 'asd';
+
+        $serializers->unserialize($var);
 
     }
 }

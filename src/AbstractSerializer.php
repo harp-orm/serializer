@@ -93,7 +93,7 @@ abstract class AbstractSerializer
      * @param  object|array $subject
      * @return AbstractSerializer $this
      */
-    public function serialize($subject)
+    public function serialize(& $subject)
     {
         if ($this->issetProperty($subject)) {
             $this->setProperty($subject, $this->serializeProperty($subject));
@@ -106,7 +106,7 @@ abstract class AbstractSerializer
      * @param  object|array $subject
      * @return AbstractSerializer $this
      */
-    public function unserialize($subject)
+    public function unserialize(& $subject)
     {
         if ($this->issetProperty($subject)) {
             $this->setProperty($subject, $this->unserializeProperty($subject));

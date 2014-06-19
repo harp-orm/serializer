@@ -119,7 +119,7 @@ class Serializers implements Iterator, Countable
      * @return object|array
      * @throws InvalidArgumentException If subject not array or object
      */
-    public function serialize($subject)
+    public function serialize(& $subject)
     {
         foreach ($this->serializers as $serializer) {
             $serializer->serialize($subject);
@@ -133,7 +133,7 @@ class Serializers implements Iterator, Countable
      * @return object|array
      * @throws InvalidArgumentException If subject not array or object
      */
-    public function unserialize($subject)
+    public function unserialize(& $subject)
     {
         foreach ($this->serializers as $serializer) {
             $serializer->unserialize($subject);
