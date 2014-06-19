@@ -37,6 +37,11 @@ print_r($serialized);
 //     [csvString] => val,val2
 //     [jsonProperty] => {"test":"asd"}
 // )
+
+$result = $serializers->unserialize($serialized);
+
+// Will be equal
+$result == $obj;
 ```
 
 License
