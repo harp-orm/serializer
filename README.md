@@ -6,10 +6,38 @@ Serializer
 [![Code Coverage](https://scrutinizer-ci.com/g/harp-orm/serializer/badges/coverage.png)](https://scrutinizer-ci.com/g/harp-orm/serializer/)
 [![Latest Stable Version](https://poser.pugx.org/harp-orm/serializer/v/stable.png)](https://packagist.org/packages/harp-orm/serializer)
 
-Serialize object properties
+Serialize object/array properties, using different rules for each property
 
 Usage
 -----
+
+```php
+use Harp\Serializer;
+
+$serializers = new Serializer\Serializers([
+    new Serializer\Native('nativeSerializerdArray'),
+    new Serializer\Csv('csvString'),
+    new Serializer\Json('jsonProperty'),
+]);
+
+$obj = new stdClass();
+
+$obj->nativeSerializerdArray = array('test' => 'param');
+$obj->csvString = array('val', 'val2');
+$obj->jsonProperty = array('test' => 'asd');
+
+$serialized = $serializers->serialize($obj);
+
+print_r($serialized);
+
+// Will output:
+// stdClass Object
+// (
+//     [nativeSerializerdArray] => a:1:{s:4:"test";s:5:"param";}
+//     [csvString] => val,val2
+//     [jsonProperty] => {"test":"asd"}
+// )
+```
 
 License
 -------
