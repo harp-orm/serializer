@@ -90,7 +90,6 @@ class SerializersTest extends AbstractTestCase
         $expected->test = 'a:1:{s:4:"test";s:5:"param";}';
         $expected->test2 = 'val1,val2';
 
-        $this->assertNotSame($subject, $serialized);
         $this->assertEquals($expected, $serialized);
 
         $this->setExpectedException('InvalidArgumentException', 'Subject must be either array or object');
@@ -120,7 +119,6 @@ class SerializersTest extends AbstractTestCase
         $expected->test = array('test' => 'param');
         $expected->test2 = array('val1', 'val2');
 
-        $this->assertNotSame($subject, $serialized);
         $this->assertEquals($expected, $serialized);
 
         $this->setExpectedException('InvalidArgumentException', 'Subject must be either array or object');

@@ -26,9 +26,7 @@ $obj->nativeSerializerdArray = array('test' => 'param');
 $obj->csvString = array('val', 'val2');
 $obj->jsonProperty = array('test' => 'asd');
 
-$serialized = $serializers->serialize($obj);
-
-print_r($serialized);
+$serializers->serialize($obj);
 
 // Will output:
 // stdClass Object
@@ -37,11 +35,10 @@ print_r($serialized);
 //     [csvString] => val,val2
 //     [jsonProperty] => {"test":"asd"}
 // )
+print_r($obj);
 
-$result = $serializers->unserialize($serialized);
-
-// Will be equal
-$result == $obj;
+// Will unserialize all the relevant properties
+$serializers->unserialize($obj);
 ```
 
 License

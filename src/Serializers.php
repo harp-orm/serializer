@@ -121,12 +121,6 @@ class Serializers implements Iterator, Countable
      */
     public function serialize($subject)
     {
-        if (is_object($subject)) {
-            $subject = clone $subject;
-        } elseif (! is_array($subject)) {
-            throw new InvalidArgumentException('Subject must be either array or object');
-        }
-
         foreach ($this->serializers as $serializer) {
             $serializer->serialize($subject);
         }
@@ -141,12 +135,6 @@ class Serializers implements Iterator, Countable
      */
     public function unserialize($subject)
     {
-        if (is_object($subject)) {
-            $subject = clone $subject;
-        } elseif (! is_array($subject)) {
-            throw new InvalidArgumentException('Subject must be either array or object');
-        }
-
         foreach ($this->serializers as $serializer) {
             $serializer->unserialize($subject);
         }
