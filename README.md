@@ -6,7 +6,7 @@ Serializer
 [![Code Coverage](https://scrutinizer-ci.com/g/harp-orm/serializer/badges/coverage.png)](https://scrutinizer-ci.com/g/harp-orm/serializer/)
 [![Latest Stable Version](https://poser.pugx.org/harp-orm/serializer/v/stable.png)](https://packagist.org/packages/harp-orm/serializer)
 
-Serialize object/array properties, using different rules for each property
+Serialize object/array properties, using different rules for each property.
 
 Usage
 -----
@@ -39,6 +39,39 @@ print_r($obj);
 
 // Will unserialize all the relevant properties
 $serializers->unserialize($obj);
+```
+
+Harp ORM Integration
+--------------------
+
+Serializer is integrated into Harp ORM and gives you the ability to store arbitrary data in your database, by serializing the model's properties.
+
+For example holding an api response in a "response" field.
+
+```php
+// Model
+class Payment extends AbstractModel
+{
+    public $id;
+    public $response;
+}
+
+// Repo
+class Payment extends AbstractRepo
+{
+    public function initialize()
+    {
+        $this
+            ->addSerializers([
+                new Serializer\Json('response'),
+            ]);
+    }
+}
+
+$model = new Model\Payment(['response' => $someArray]);
+
+// The response property will get serialized as a json string.
+Repo\Payment::get()->save($model);
 ```
 
 License
