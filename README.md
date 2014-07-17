@@ -41,6 +41,52 @@ print_r($obj);
 $serializers->unserialize($obj);
 ```
 
+Object Serialization
+--------------------
+
+If you have an object that implements Serializable, but does not use the native php serialization you can use Object Serializer, greatly reducing the object's string footprint.
+
+```php
+use Serializable;
+
+class SimpleObject implements Serializable
+{
+    public $prop1;
+    public $prop2;
+
+    public function serialize()
+    {
+        return $this->prop1.','.$this->prop2;
+    }
+
+    public function unserialize($data)
+    {
+        list($this->prop1, $this->prop2) = explode(',', $data);
+    }
+}
+
+$serializers = new Serializer\Serializers([
+    new Serializer\Object('test', 'SimpleObject'),
+]);
+
+$obj = new stdClass();
+$obj->test = new SimpleObject();
+$obj->test->prop1 = 10;
+$obj->test->prop2 = 20;
+
+$serializers->serialize($obj);
+
+// Will output:
+// stdClass Object
+// (
+//     [test] => 10,20
+// )
+print_r($obj);
+
+// Will unserialize all the relevant properties
+$serializers->unserialize($obj);
+```
+
 Harp ORM Integration
 --------------------
 
