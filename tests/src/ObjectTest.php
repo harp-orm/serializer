@@ -10,6 +10,18 @@ use stdClass;
  */
 class ObjectTest extends AbstractTestCase
 {
+    /**
+     * @covers ::__construct
+     * @covers ::getClass
+     * @covers ::newInstance
+     */
+    public function testConstruct()
+    {
+        $object = new Object('test', 'stdClass');
+        $this->assertEquals($object->getClass(), 'stdClass');
+        $this->assertInstanceOf('stdClass', $object->newInstance());
+    }
+
     public function dataSerialize()
     {
         return array(
@@ -29,7 +41,6 @@ class ObjectTest extends AbstractTestCase
             array(new SimpleObject(null, 32), ',32'),
         );
     }
-
 
     /**
      * @covers ::serializeProperty

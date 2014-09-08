@@ -9,6 +9,9 @@ namespace Harp\Serializer;
  */
 class Object extends AbstractSerializer
 {
+    /**
+     * @var string
+     */
     private $class;
 
     /**
@@ -21,11 +24,17 @@ class Object extends AbstractSerializer
         $this->class = $class;
     }
 
+    /**
+     * @return string
+     */
     public function getClass()
     {
         return $this->class;
     }
 
+    /**
+     * @return object
+     */
     public function newInstance()
     {
         $class = $this->class;
