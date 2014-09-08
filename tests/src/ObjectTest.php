@@ -24,22 +24,22 @@ class ObjectTest extends AbstractTestCase
 
     public function dataSerialize()
     {
-        return array(
-            array(new SimpleObject(1, 10), '1,10'),
-            array(new SimpleObject(), ','),
-            array(new SimpleObject(2), '2,'),
-            array(new SimpleObject(null, 32), ',32'),
-        );
+        return [
+            [new SimpleObject(1, 10), '1,10'],
+            [new SimpleObject(), ','],
+            [new SimpleObject(2), '2,'],
+            [new SimpleObject(null, 32), ',32'],
+        ];
     }
 
     public function dataUnserialize()
     {
-        return array(
-            array(new SimpleObject(1, 10), '1,10'),
-            array(new SimpleObject(), null),
-            array(new SimpleObject(), ''),
-            array(new SimpleObject(null, 32), ',32'),
-        );
+        return [
+            [new SimpleObject(1, 10), '1,10'],
+            [new SimpleObject(), null],
+            [new SimpleObject(), ''],
+            [new SimpleObject(null, 32), ',32'],
+        ];
     }
 
     /**
@@ -50,7 +50,7 @@ class ObjectTest extends AbstractTestCase
     {
         $serializer = new Object('test', 'Harp\Serializer\Test\SimpleObject');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->serializeProperty($subject));
 
@@ -68,7 +68,7 @@ class ObjectTest extends AbstractTestCase
     {
         $serializer = new Object('test', 'Harp\Serializer\Test\SimpleObject');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->unserializeProperty($subject));
 

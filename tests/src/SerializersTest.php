@@ -29,10 +29,10 @@ class SerializersTest extends AbstractTestCase
      */
     public function testConstruct()
     {
-        $serializerObjects = array(
+        $serializerObjects = [
             new NullSerializer('test'),
             new NullSerializer('test2'),
-        );
+        ];
 
         $serializers = new Serializers($serializerObjects);
 
@@ -70,35 +70,35 @@ class SerializersTest extends AbstractTestCase
 
     public function dataSerialize()
     {
-        $serializers = new Serializers(array(
+        $serializers = new Serializers([
             new Native('test'),
             new Csv('test2'),
-        ));
+        ]);
 
-        return array(
-            array(
-                (object) array(
-                    'test' => array('test' => 'param'),
-                    'test2' => array('val1', 'val2')
-                ),
+        return [
+            [
+                (object) [
+                    'test' => ['test' => 'param'],
+                    'test2' => ['val1', 'val2']
+                ],
                 $serializers,
-                (object) array(
+                (object) [
                     'test' => 'a:1:{s:4:"test";s:5:"param";}',
                     'test2' => 'val1,val2',
-                ),
-            ),
-            array(
-                array(
-                    'test' => array('test' => 'param'),
-                    'test2' => array('val1', 'val2')
-                ),
+                ],
+            ],
+            [
+                [
+                    'test' => ['test' => 'param'],
+                    'test2' => ['val1', 'val2']
+                ],
                 $serializers,
-                array(
+                [
                     'test' => 'a:1:{s:4:"test";s:5:"param";}',
                     'test2' => 'val1,val2',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
     }
 
     /**
@@ -121,35 +121,35 @@ class SerializersTest extends AbstractTestCase
 
     public function dataUnserialize()
     {
-        $serializers = new Serializers(array(
+        $serializers = new Serializers([
             new Native('test'),
             new Csv('test2'),
-        ));
+        ]);
 
-        return array(
-            array(
-                (object) array(
+        return [
+            [
+                (object) [
                     'test' => 'a:1:{s:4:"test";s:5:"param";}',
                     'test2' => 'val1,val2',
-                ),
+                ],
                 $serializers,
-                (object) array(
-                    'test' => array('test' => 'param'),
-                    'test2' => array('val1', 'val2')
-                ),
-            ),
-            array(
-                array(
+                (object) [
+                    'test' => ['test' => 'param'],
+                    'test2' => ['val1', 'val2']
+                ],
+            ],
+            [
+                [
                     'test' => 'a:1:{s:4:"test";s:5:"param";}',
                     'test2' => 'val1,val2',
-                ),
+                ],
                 $serializers,
-                array(
-                    'test' => array('test' => 'param'),
-                    'test2' => array('val1', 'val2')
-                ),
-            )
-        );
+                [
+                    'test' => ['test' => 'param'],
+                    'test2' => ['val1', 'val2']
+                ],
+            ]
+        ];
     }
 
     /**

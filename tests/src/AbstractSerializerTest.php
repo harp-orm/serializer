@@ -23,13 +23,13 @@ class AbstractSerializerTest extends AbstractTestCase
 
     public function dataIssetProperty()
     {
-        return array(
-            array(array('test' => null), 'test', false, null),
-            array(array('test' => 'param'), 'test', true, null),
-            array(new SerializableObject('tmp'), 'test', false, null),
-            array(new SerializableObject('tmp'), 'prop', true, null),
-            array('wrong type', 'prop', false, 'Subject must be either array or object'),
-        );
+        return [
+            [['test' => null], 'test', false, null],
+            [['test' => 'param'], 'test', true, null],
+            [new SerializableObject('tmp'), 'test', false, null],
+            [new SerializableObject('tmp'), 'prop', true, null],
+            ['wrong type', 'prop', false, 'Subject must be either array or object'],
+        ];
     }
 
     /**
@@ -49,12 +49,12 @@ class AbstractSerializerTest extends AbstractTestCase
 
     public function dataGetProperty()
     {
-        return array(
-            array(array('test' => null), 'test', null, null),
-            array(array('test' => 'param'), 'test', 'param', null),
-            array(new SerializableObject('tmp'), 'prop', 'tmp', null),
-            array('wrong type', 'prop', null, 'Subject must be either array or object'),
-        );
+        return [
+            [['test' => null], 'test', null, null],
+            [['test' => 'param'], 'test', 'param', null],
+            [new SerializableObject('tmp'), 'prop', 'tmp', null],
+            ['wrong type', 'prop', null, 'Subject must be either array or object'],
+        ];
     }
 
     /**
@@ -74,13 +74,13 @@ class AbstractSerializerTest extends AbstractTestCase
 
     public function dataSetProperty()
     {
-        return array(
-            array(array('test' => null), 'test', 'val', array('test' => 'val'), null),
-            array(array('test' => 'param'), 'test', 'val', array('test' => 'val'), null),
-            array(new SerializableObject('tmp'), 'prop', 'test', new SerializableObject('test'), null),
-            array(new SerializableObject(), 'prop', 'test', new SerializableObject('test'), null),
-            array('wrong type', 'prop', null, null, 'Subject must be either array or object'),
-        );
+        return [
+            [['test' => null], 'test', 'val', ['test' => 'val'], null],
+            [['test' => 'param'], 'test', 'val', ['test' => 'val'], null],
+            [new SerializableObject('tmp'), 'prop', 'test', new SerializableObject('test'), null],
+            [new SerializableObject(), 'prop', 'test', new SerializableObject('test'), null],
+            ['wrong type', 'prop', null, null, 'Subject must be either array or object'],
+        ];
     }
 
     /**
@@ -102,10 +102,10 @@ class AbstractSerializerTest extends AbstractTestCase
 
     public function dataSerialize()
     {
-        return array(
-            array(array('test' => 'tmp')),
-            array(new SerializableObject('tmp')),
-        );
+        return [
+            [['test' => 'tmp']],
+            [new SerializableObject('tmp')],
+        ];
     }
 
     /**
@@ -114,12 +114,12 @@ class AbstractSerializerTest extends AbstractTestCase
      */
     public function testSerializeArray($subject)
     {
-        $subject = array('test' => 'tmp');
+        $subject = ['test' => 'tmp'];
 
         $item = $this->getMock(
             'Harp\Serializer\NullSerializer',
-            array('issetProperty', 'setProperty', 'serializeProperty'),
-            array('test')
+            ['issetProperty', 'setProperty', 'serializeProperty'],
+            ['test']
         );
 
         $item
@@ -146,10 +146,10 @@ class AbstractSerializerTest extends AbstractTestCase
 
     public function dataUnserialize()
     {
-        return array(
-            array(array('test' => 'tmp')),
-            array(new SerializableObject('tmp')),
-        );
+        return [
+            [['test' => 'tmp']],
+            [new SerializableObject('tmp')],
+        ];
     }
 
     /**
@@ -158,12 +158,12 @@ class AbstractSerializerTest extends AbstractTestCase
      */
     public function testUnserializeArray($subject)
     {
-        $subject = array('test' => 'tmp');
+        $subject = ['test' => 'tmp'];
 
         $item = $this->getMock(
             'Harp\Serializer\NullSerializer',
-            array('issetProperty', 'setProperty', 'unserializeProperty'),
-            array('test')
+            ['issetProperty', 'setProperty', 'unserializeProperty'],
+            ['test']
         );
 
         $item

@@ -12,14 +12,14 @@ class JsonTest extends AbstractTestCase
 {
     public function dataSerialize()
     {
-        return array(
-            array(null, 'null'),
-            array('test', '"test"'),
-            array(true, 'true'),
-            array(false, 'false'),
-            array(array('test' => 'asd'), '{"test":"asd"}'),
-            array(new SerializableObject('tmp'), '{"prop":"tmp"}'),
-        );
+        return [
+            [null, 'null'],
+            ['test', '"test"'],
+            [true, 'true'],
+            [false, 'false'],
+            [['test' => 'asd'], '{"test":"asd"}'],
+            [new SerializableObject('tmp'), '{"prop":"tmp"}'],
+        ];
     }
 
     /**
@@ -30,7 +30,7 @@ class JsonTest extends AbstractTestCase
     {
         $serializer = new Json('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->serializeProperty($subject));
 
@@ -42,14 +42,14 @@ class JsonTest extends AbstractTestCase
 
     public function dataUnserialize()
     {
-        return array(
-            array('null', null, null),
-            array('"test"', 'test', null),
-            array('true', true, null),
-            array('false', false, null),
-            array('{"test":"asd"}', array('test' => 'asd'), null),
-            array('{"test":}', null, 'Error parsing JSON property: Syntax error, malformed JSON'),
-        );
+        return [
+            ['null', null, null],
+            ['"test"', 'test', null],
+            ['true', true, null],
+            ['false', false, null],
+            ['{"test":"asd"}', ['test' => 'asd'], null],
+            ['{"test":}', null, 'Error parsing JSON property: Syntax error, malformed JSON'],
+        ];
     }
 
     /**
@@ -60,7 +60,7 @@ class JsonTest extends AbstractTestCase
     {
         $serializer = new Json('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         if ($exception) {
             $this->setExpectedException('InvalidArgumentException', $exception);

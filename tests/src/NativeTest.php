@@ -12,14 +12,14 @@ class NativeTest extends AbstractTestCase
 {
     public function dataSerialize()
     {
-        return array(
-            array(null, serialize(null)),
-            array('test', serialize('test')),
-            array(true, serialize(true)),
-            array(false, serialize(false)),
-            array(array('test' => 'asd'), serialize(array('test' => 'asd'))),
-            array(new SerializableObject('tmp'), serialize(new SerializableObject('tmp'))),
-        );
+        return [
+            [null, serialize(null)],
+            ['test', serialize('test')],
+            [true, serialize(true)],
+            [false, serialize(false)],
+            [['test' => 'asd'], serialize(['test' => 'asd'])],
+            [new SerializableObject('tmp'), serialize(new SerializableObject('tmp'))],
+        ];
     }
 
     /**
@@ -30,7 +30,7 @@ class NativeTest extends AbstractTestCase
     {
         $serializer = new Native('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->serializeProperty($subject));
 
@@ -48,7 +48,7 @@ class NativeTest extends AbstractTestCase
     {
         $serializer = new Native('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->unserializeProperty($subject));
 

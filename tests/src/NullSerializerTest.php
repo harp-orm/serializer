@@ -12,14 +12,14 @@ class NullSerializerTest extends AbstractTestCase
 {
     public function dataSerialize()
     {
-        return array(
-            array(null, null),
-            array('test', 'test'),
-            array(true, true),
-            array(false, false),
-            array(array('test' => 'asd'), array('test' => 'asd')),
-            array(new SerializableObject('tmp'), new SerializableObject('tmp')),
-        );
+        return [
+            [null, null],
+            ['test', 'test'],
+            [true, true],
+            [false, false],
+            [['test' => 'asd'], ['test' => 'asd']],
+            [new SerializableObject('tmp'), new SerializableObject('tmp')],
+        ];
     }
 
     /**
@@ -30,7 +30,7 @@ class NullSerializerTest extends AbstractTestCase
     {
         $serializer = new NullSerializer('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->serializeProperty($subject));
 
@@ -48,7 +48,7 @@ class NullSerializerTest extends AbstractTestCase
     {
         $serializer = new NullSerializer('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->unserializeProperty($subject));
 

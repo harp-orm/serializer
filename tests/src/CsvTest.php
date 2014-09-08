@@ -12,13 +12,13 @@ class CsvTest extends AbstractTestCase
 {
     public function dataSerialize()
     {
-        return array(
-            array(null, null),
-            array('test', 'test'),
-            array(array('test'), 'test'),
-            array(array('test', 'test2'), 'test,test2'),
-            array(array('test' => 'asd', 'test2' => 'asd2'), 'asd,asd2'),
-        );
+        return [
+            [null, null],
+            ['test', 'test'],
+            [['test'], 'test'],
+            [['test', 'test2'], 'test,test2'],
+            [['test' => 'asd', 'test2' => 'asd2'], 'asd,asd2'],
+        ];
     }
 
     /**
@@ -29,7 +29,7 @@ class CsvTest extends AbstractTestCase
     {
         $serializer = new Csv('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->serializeProperty($subject));
 
@@ -41,10 +41,10 @@ class CsvTest extends AbstractTestCase
 
     public function dataUnserialize()
     {
-        return array(
-            array('test', array('test')),
-            array('test,test2', array('test', 'test2')),
-        );
+        return [
+            ['test', ['test']],
+            ['test,test2', ['test', 'test2']],
+        ];
     }
 
     /**
@@ -55,7 +55,7 @@ class CsvTest extends AbstractTestCase
     {
         $serializer = new Csv('test');
 
-        $subject = array('test' => $value);
+        $subject = ['test' => $value];
 
         $this->assertEquals($expected, $serializer->unserializeProperty($subject));
 
