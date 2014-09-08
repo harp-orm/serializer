@@ -120,6 +120,36 @@ $model = new Model\Payment(['response' => $someArray]);
 Repo\Payment::get()->save($model);
 ```
 
+SerializersTrait
+----------------
+
+This trait gives you the ability to easily add serializers to another object.
+
+```php
+class TestConfig {
+    use SerializersTrait;
+}
+
+$config = new TestConfig();
+
+$config
+    ->serializeCsv('name');
+
+// Return the Asserts object
+$config->getSerializers();
+```
+
+Here are all the methods added by this trait.
+
+Method                                | Description
+--------------------------------------|--------------------------------------------------
+__getSerializers__()                  | Get the Serializers object
+__addSerializer__(AbstractSerializer) | Add arbitrary asserts
+__serializeCsv__($name)               | Add an Csv object
+__serializeJson__($name)              | Add an Csv object
+__serializeNative__($name)            | Add an Csv object
+__serializeObject__($name, $class)    | Add an Csv object
+
 License
 -------
 
