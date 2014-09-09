@@ -144,11 +144,11 @@ Here are all the methods added by this trait.
 Method                                | Description
 --------------------------------------|--------------------------------------------------
 __getSerializers__()                  | Get the Serializers object
-__addSerializer__(AbstractSerializer) | Add arbitrary asserts
-__serializeCsv__($name)               | Add an Csv object
-__serializeJson__($name)              | Add an Csv object
-__serializeNative__($name)            | Add an Csv object
-__serializeObject__($name, $class)    | Add an Csv object
+__addSerializer__(AbstractSerializer) | Add arbitrary serializer
+__serializeCsv__($name)               | Add an Csv serializer
+__serializeJson__($name)              | Add an Json serializer
+__serializeNative__($name)            | Add an Native serializer
+__serializeObject__($name, $class)    | Add an Object serializer
 
 License
 -------
